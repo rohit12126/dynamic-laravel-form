@@ -8,32 +8,37 @@
                 <div class="card-header">Form Information</div>
 
                 <div class="card-body">
-                    <form method="POST" onkeydown="return event.key != 'Enter';" class="form-horizontal" action="{{route('forminformation.store')}}">
+                    <form method="POST" onkeydown="return event.key != 'Enter';" class="form-horizontal" action="{{route('forminformation.update',['forminformation'=>$formData->id])}}">
                         @csrf
+                        @method('PUT')
                         <div class="form-group row">
                             <label for="formname" class="col-sm-2 col-form-label">Form Name</label>
                             <div class="col-sm-10">
-                            <input type="text" placeholder="Enter Form Name" class="form-control-plaintext" name="form_name"  value="">
+                            <input type="text" placeholder="Enter Form Name" class="form-control-plaintext" name="form_name"  value="{{ old('form_name', $formData->name)}}">
                             </div>
 
                         </div>
+
                         <div class="after-add-more">
+                            @foreach($formData->fields as $index=>$field)
+                              
+                    
                             <div class="form-group custom-group row">
                                 <label for="inputname" class="col-sm-2 col-form-label">Field Info</label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control"  name="input_name[]" placeholder="Input name">
+                                    <input type="text" class="form-control"  name="input_name[]" value="{{ old('input_name[$i]', $field->name)}}" placeholder="Input name">
 
                                 </div>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control"  name="label_name[]" placeholder="Label Name">
+                                    <input type="text" class="form-control"  name="label_name[]"  value="{{ old('input_name[$i]', $field->label)}}" placeholder="Label Name">
                                     
                                 </div>
                         
                                 <div class="col-sm-2">
-
+                                    
                                     <select class="form-control input-types " name="type[]" placeholder="Select input type">
-                                        @foreach ($inputtagData as $index=> $tag)  
-                                         <option value="{{$tag->id}}">{{$tag->name}}</option>
+                                        @foreach ($inputtagData as  $tag)  
+                                         <option value="{{$tag->id}}" @if($field->input->id==$tag->id) selected @endif >{{$tag->name}}</option>
                                 
 
                                        @endforeach
@@ -44,11 +49,17 @@
 
                                     
                                 </div>
-                                <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                        
+                                @if ($index==0)
+                                    <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                                @else
+                                    <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+                                @endif
                             </div>
+                            @endforeach
                         </div>    
                        
-                        <button type="submit" class="btn btn-primary">Add Form</button>
+                        <button type="submit" class="btn btn-primary">Update Form</button>
 
                     </form>
                 

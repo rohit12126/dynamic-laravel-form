@@ -63,14 +63,15 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('forminformation.index') }}">
+                                         Form Information          
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('forminformation.create') }}">
-                                         Form Information          
-                                    </a>
+                             
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
@@ -90,7 +91,7 @@
 </body>
 <!-- //<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
 
-
+     <script src="{{ url('assets')}}/js/bootstrap-notify.js"></script>
      <script src="{{url('assets')}}/dist/bootstrap-tagsinput.min.js"></script>
          <script type="text/javascript">
 
@@ -100,20 +101,48 @@
 
                 $(".add-more").click(function(){ 
                     var html = $(".copy").html();
-                    $(".after-add-more").after(html);
-                });
+                    $(".after-add-more").append(html);
+                    // $('.custom-tag').tagsinput('destroy');
+                    $('.custom-tag').tagsinput('refresh', {preventPost: true});
 
+            
+                });
+             
 
                 $("body").on("click",".remove",function(){ 
                     $(this).parents(".custom-group").remove();
                 });
 
-                // $(window).keydown(function(event){
-                //     if(event.keyCode == 13) {
-                //       event.preventDefault();
-                //       return false;
-                //     }
-                // });
+                  // $('input').tagsinput({
+                  //   onTagExists: function(item, $tag) {
+                  //     $tag.hide().fadeIn();
+                  //   }
+                  // });
+
+                    @if (session()->has('error'))
+                          $.notify({
+                              message: "{{ session('error') }}"
+                              },{
+                              type: 'danger',
+                              timer: 1000,
+                              placement: {
+                                  from: 'bottom',
+                                  align: 'right'
+                              }
+                          }); 
+                        @endif
+                        @if (session()->has('success'))
+                          $.notify({
+                              message: "{{ session('success') }}"
+                              },{
+                              type: 'success',
+                              timer: 1000,
+                              placement: {
+                                  from: 'bottom',
+                                  align: 'right'
+                              }
+                          }); 
+                    @endif
 
 
                 });

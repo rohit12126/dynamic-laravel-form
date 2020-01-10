@@ -6,6 +6,8 @@ use App\FormInformation;
 use Illuminate\Http\Request;
 use App\InputTags;
 use App\UserFormData;
+use App\FormFields;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -14,66 +16,72 @@ use App\UserFormData;
 class FormFieldController extends Controller
 {
     //
-     public function show(FormFields $FormFields)
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    public function show(FormFields $FormFields)
     {
         return $FormFields->name;
     }
 
 
-    public function currentFormAjaxData(FormInformation $form_information){
+    public function currentFormAjaxData(FormInformation $formInfo){
 
-    	// dd($form_information);
-    	
-    	$form_information->load(['user_form_data','fields'])->groupBy('user_form_data.token','user_form_data.form_information_id');
+		$userDatas = $formInfo->userFormData;
+		
+		$data=array();
+		$formField =new FormFields;
+		foreach ($userDatas as  $userData) {
+    
+            $formField= $formField->find($userData->formfield_id);  
+            if(array_key_exists($userData->token,$data)){
 
+            	$data[$userData->token][$formField->name]=$userData->field_value;
+            }else{
 
-
-    	$fields = $form_information->fields->pluck('name','id')->toArray();
-
-    	// return $form_information->user_form_data->toArray();
-   
-
-        $user_form_data = $form_information->user_form_data->pluck('field_value','formfield_id');
-       
-        foreach ($user_form_data as $key => $value) {
-        	# code...
-        }
+				$data[$userData->token][$formField->name] = $userData->field_value; 
+            } 
+			# code...
+		}
         
-        return $user_form_data;  
-		$user_form_data = $user_form_data->map(function ($item, $key) use($fields) {
+		return \DataTables::of($data)
 
-    		$data = [
-    			'name'=>$key,
-    			'value'=>'-',
-    			
-    		];
-    	
-            return $item;
-            // dd($key);
-		    if (!empty($fields[$key])) {
-		    	$data['name'] = $fields[$key];
 
-		    	$data['value'] = $item;
-		        $item = $data;
-		    }
-		    return  $item;
-		});
-        
-        return $user_form_data;
-		// return Datatables::of($user_form_data)
-  //                   ->addIndexColumn()
-                   
-                  
-  //                   ->make(true);
+        ->addIndexColumn()
+        ->make(true);
+ 		// return $data;
+           
+
+
  
 
     }
 
-    public function currentForm(FormInformation $form_information){
+    public function currentForm(FormInformation $formInfo){
 
-    	
-    	// return $form_information->load('fields');
-    	return view('customForm.customForm')->with('table_head',$form_information->load('fields'));
+    	$userDatas = $formInfo->userFormData;
+		
+		$data=array();
+		$formField =new FormFields;
+		foreach ($userDatas as  $userData) {
+    
+            $formField= $formField->find($userData->formfield_id);  
+            if(array_key_exists($userData->token,$data)){
+
+            	$data[$userData->token][$formField->name]=$userData->field_value;
+            }else{
+
+				$data[$userData->token][$formField->name] = $userData->field_value; 
+            } 
+			# code...
+		}
+        $data =array('table_head'=>$formInfo->load('fields'),
+        	'data'=>$data
+
+        );
+    	return view('customForm.customForm')->with($data);
 
     }
 }

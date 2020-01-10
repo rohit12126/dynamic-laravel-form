@@ -5,7 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Form Information</div>
+                <div class="card-header">Form Information
+                   <a class="btn btn-success float-right" href="{{route('forminformation.create')}}">Add From</a> 
+                </div>
 
                 <div class="card-body">
                   

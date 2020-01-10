@@ -13,9 +13,13 @@ class FormInformation extends Model
     	return $this->hasMany(FormFields::class);
     }
 
-    public function user_form_data(){
+    public function userFormData(){
 
-    	return $this->hasMany(UserFormData::class);
+    	return $this->hasManyThrough(UserFormData::class,FormFields::class,'form_information_id','formfield_id');
     }
+
+
+
+    
 
 }

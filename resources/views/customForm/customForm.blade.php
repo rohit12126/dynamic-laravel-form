@@ -5,7 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{$table_head->name}} Form Data</div>
+                <div class="card-header">{{$table_head->name}} Form Data 
+                    
+                </div>
 
                 <div class="card-body">
                   
@@ -19,19 +21,22 @@
                                   @foreach ($table_head->fields as $head)
                                   <th>{{$head->name}}</th>
                                   @endforeach
-                                 
+                                  
                                 </tr>
                               </thead>
                               <tbody>
-         
-                              
-                              <tr>
-                                  
-                                    
-                              </tr>
+                                    @php $i=1; @endphp
+                                    @foreach ($data as $index=>$parentData)  
+                                    <tr>
+                                      <td>{{$i ++}}</td>
+                                      @foreach ($parentData as $childData)
+                                        <td>{{$childData}}</td>
+                                      @endforeach
+                                    </tr>  
+                            
 
-                    
-                              
+                               @endforeach
+                          
                               </tbody>
                           </table>
                       
@@ -53,19 +58,50 @@
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
     });
-    
-    var table = $('.data-table').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{ route('formfields.currentFormAjaxData',$table_head->id) }}",
-        columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'name', name: 'name'},
-            {data: 'detail', name: 'detail'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
-        ]
-    });
+    columnData =[];
+    columnData.push();
+    // $.ajax({
+    // type : 'GET',
+    // url  : '{{ route('formfields.currentFormAjaxData',$table_head->id) }}',
+    // datatype: 'json',
 
+    // success :  function(result)
+    //     {
+          
+    //       $.each(result['data'], function(key,val) {
+
+    //         $.each(val, function(childKey,childVal) {
+               
+    //            // columnData.push({data:'"'+childKey+'",'+name:'"'+childVal+'",'+orderable:true});
+            
+    //         }); 
+            
+    //       });
+    //       // columns.push(childData);
+    //       console.log(columnData);
+    //       var table = $('.data-table').DataTable({
+    //               draw:0,
+    //               recordsFiltered:2,
+    //               recordsTotal:2,
+                
+                
+    //               column: [
+    //                   { data: 'DT_RowIndex',name: 'DT_RowIndex',"searchable":false,"orderable":false},
+    //                   { data: 'full name',name: 'full name',"searchable": false,"orderable":false},
+    //                   {data: 'password',name: 'password',"searchable": false,"orderable":false},
+    //                   {data: 'email',name: 'password',"searchable": false,"orderable":false}
+    //                 ]
+
+    //       } );
+            
+             
+    //     }
+      
+
+    // }); 
+
+ 
+ 
    }); 
 </script>
 

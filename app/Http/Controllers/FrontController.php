@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\FormInformation;
+use App\UserFormData;
 
 
 class FrontController extends Controller
@@ -32,12 +33,14 @@ class FrontController extends Controller
         
         $fields=$form_information->fields;
    		$data=array(); 
+        $token =$this->generateToken();
         foreach ($fields as  $field) {
         	$data[] =array(
         		'form_information_id'=>$field->form_information_id,
         		'formfield_id'=>$field->id,
-        		'field_value'=>$request->input($field->input_type_id),
+        		'field_value'=>$request->input($field->id),
         		'user_id'	=>0,
+                'token'     =>$token,
         		'ip_address'=>$request->input('ip','127.0.0.1')
 
 
@@ -51,6 +54,11 @@ class FrontController extends Controller
             session()->flash('error', __('Opps some  error occure'));
         }
         return redirect()->back();
+    }
+
+    private function generateToken()
+    {
+        return md5(rand(1, 10) . microtime());
     }
 
 

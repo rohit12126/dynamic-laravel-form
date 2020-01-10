@@ -17,7 +17,7 @@
                       <div class="form-group">
                         <label class="control-label col-sm-2" for="email">{{$field->label}}:</label>
                         <div class="col-sm-10">
-                          <input type="{{$field->input->name}}" class="form-control" name="{{$field->input->id}}" >
+                          <input type="{{$field->input->name}}" class="form-control" name="{{$field->id}}" >
                         </div>
                       </div>
 

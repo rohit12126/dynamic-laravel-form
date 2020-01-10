@@ -23,7 +23,7 @@ Route::get('/front/form','FrontController@index');
 Route::get('front/currentForm/{form_information}','FrontController@currentForm')->name('front.currentForm');
 Route::POST('front/userFormData/{form_information}','FrontController@store')->name('front.userFormData');
 
-Route::get('formfields/currentForm/{form_information}','FormFieldController@currentForm')->name('formfields.currentForm');
+Route::get('formfields/currentForm/{formInfo}','FormFieldController@currentForm')->name('formfields.currentForm');
 
-Route::get('formfields/currentFormAjaxData/{form_information}','FormFieldController@currentFormAjaxData')->name('formfields.currentFormAjaxData');
+Route::get('formfields/currentFormAjaxData/{formInfo}','FormFieldController@currentFormAjaxData')->name('formfields.currentFormAjaxData');
 
