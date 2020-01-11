@@ -21,7 +21,7 @@
 
                         <div class="after-add-more">
                             @foreach($formData->fields as $index=>$field)
-                              
+                               
                     
                             <div class="form-group custom-group row">
                                 <label for="inputname" class="col-sm-2 col-form-label">Field Info</label>
@@ -44,16 +44,17 @@
                                        @endforeach
                                     </select>
                                 </div>
-                                <div class="col-sm-2 custom-input-tags" style="display:none;">
-                                    <input type="text" class="form-control"  name="input_tags[]" placeholder="Input Tags" data-role="tagsinput" >
+                                <div class="col-sm-2 custom-input-tags" @if($field->input->id!=2 || $field->input->id!=3) style="display:none;" @endif>
+
+                                    <input type="text"  class="form-control"  name="input_tags[]" placeholder="Input Tags" data-role="tagsinput" >
 
                                     
                                 </div>
                         
                                 @if ($index==0)
-                                    <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                                    <button class="btn btn-primary add-more" type="button"><i class="fa fa-plus"></i></button>
                                 @else
-                                    <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+                                    <button onclick="return confirmBox(`Do you want to delete it your related data also will be delete it ?`,`{{ route('formfields.customDelete',['formfield'=>$field->id])}}`)"  class="btn btn-danger remove" type="button"><i class="fa fa-times"></i></button>
                                 @endif
                             </div>
                             @endforeach
@@ -88,7 +89,7 @@
                                  <input type="text" class="form-control custom-tag"  name="input_tags[]" placeholder="Input Tags" data-role="tagsinput" >
                                 
                                 </div>
-                                <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+                                <button class="btn btn-danger custom-remove" type="button"><i class="fa fa-times"></i></button>
                             </div>         
                         </div>
 

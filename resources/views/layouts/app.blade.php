@@ -15,11 +15,13 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link href="{{ url('assets/dist') }}/bootstrap-tagsinput.css" rel="stylesheet" crossorigin="anonymous">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" crossorigin="anonymous">
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url('assets') }}/sweetalert/css/sweetalert.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -91,8 +93,13 @@
 </body>
 <!-- //<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
 
-     <script src="{{ url('assets')}}/js/bootstrap-notify.js"></script>
-     <script src="{{url('assets')}}/dist/bootstrap-tagsinput.min.js"></script>
+    <script src="{{ url('assets')}}/js/bootstrap-notify.js"></script>
+    <script src="{{url('assets')}}/dist/bootstrap-tagsinput.min.js"></script>
+    <script src="{{ url('assets') }}/sweetalert/js/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+    <script src="{{ url('assets') }}/js/custom.js"></script>
          <script type="text/javascript">
 
 
@@ -109,9 +116,7 @@
                 });
              
 
-                $("body").on("click",".remove",function(){ 
-                    $(this).parents(".custom-group").remove();
-                });
+               
 
                   // $('input').tagsinput({
                   //   onTagExists: function(item, $tag) {

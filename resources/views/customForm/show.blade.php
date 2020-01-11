@@ -33,8 +33,9 @@
    
 
                                   <td>
-                                    <a href="{{route('forminformation.edit',['forminformation' => $data->id])}}" class="btn btn-primary btn-sm tooltips" data-original-title="Update {{$data->name}} details"><i class="fa fa-pencil">edit</i></a>
-                                    <a href="{{route('formfields.currentForm', $data->id)}}" class="btn btn-primary btn-sm tooltips" data-original-title="Update {{$data->name}} details"><i class="fa fa-pencil">view</i></a>
+                                    <a href="{{route('forminformation.edit',['forminformation' => $data->id])}}" class="btn btn-info btn-sm tooltips" data-original-title="Update {{$data->name}} details"><i class="fa fa-pencil"></i></a>
+                                    <a href="{{route('formfields.currentForm', $data->id)}}" class="btn btn-primary btn-sm tooltips" data-original-title="Update {{$data->name}} details"><i class="fa fa-eye"></i></a>
+                                    <a href="javascript:;" onclick="return confirmBox(`Do you want to delete it ?`,`{{route('forminformation.customDelete',['forminformation'=>$data->id])}}`)"  class="btn btn-danger btn-sm tooltips" data-original-title="Update {{$data->name}} details"><i class="fa fa-trash"></i></a>
                                   </td>
                                      
                       

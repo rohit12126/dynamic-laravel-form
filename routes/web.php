@@ -24,6 +24,7 @@ Route::get('front/currentForm/{form_information}','FrontController@currentForm')
 Route::POST('front/userFormData/{form_information}','FrontController@store')->name('front.userFormData');
 
 Route::get('formfields/currentForm/{formInfo}','FormFieldController@currentForm')->name('formfields.currentForm');
-
+Route::get('formfields/customDelete/{formfield}','FormFieldController@customDelete')->name('formfields.customDelete');
+Route::get('forminformation/customDelete/{forminformation}','FormInformationController@customDelete')->name('forminformation.customDelete');
 Route::get('formfields/currentFormAjaxData/{formInfo}','FormFieldController@currentFormAjaxData')->name('formfields.currentFormAjaxData');
 

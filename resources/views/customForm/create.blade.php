@@ -21,11 +21,11 @@
                             <div class="form-group custom-group row">
                                 <label for="inputname" class="col-sm-2 col-form-label">Field Info</label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control"  name="input_name[]" placeholder="Input name">
+                                    <input type="text" class="form-control"  name="input_name[]" required placeholder="Input name">
 
                                 </div>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control"  name="label_name[]" placeholder="Label Name">
+                                    <input type="text" class="form-control"  name="label_name[]" required placeholder="Label Name">
                                     
                                 </div>
                         
@@ -44,7 +44,7 @@
 
                                     
                                 </div>
-                                <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                                <button class="btn btn-success add-more" type="button"><i class="fa fa-plus"></i></button>
                             </div>
                         </div>    
                        
@@ -77,7 +77,7 @@
                                  <input type="text" class="form-control custom-tag"  name="input_tags[]" placeholder="Input Tags" data-role="tagsinput" >
                                 
                                 </div>
-                                <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+                                <button class="btn btn-danger remove" type="button"><i class="fa fa-times"></i></button>
                             </div>         
                         </div>
 

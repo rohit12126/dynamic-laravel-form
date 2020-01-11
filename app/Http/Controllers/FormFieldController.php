@@ -47,41 +47,46 @@ class FormFieldController extends Controller
 		}
         
 		return \DataTables::of($data)
-
-
         ->addIndexColumn()
         ->make(true);
+
+
  		// return $data;
+    }
            
 
 
  
 
-    }
 
     public function currentForm(FormInformation $formInfo){
 
     	$userDatas = $formInfo->userFormData;
-		
-		$data=array();
-		$formField =new FormFields;
+        $data=array();
+		// $formField= $formInfo->fields; 
+        $formField =new FormFields;
 		foreach ($userDatas as  $userData) {
-    
             $formField= $formField->find($userData->formfield_id);  
-            if(array_key_exists($userData->token,$data)){
-
-            	$data[$userData->token][$formField->name]=$userData->field_value;
-            }else{
-
-				$data[$userData->token][$formField->name] = $userData->field_value; 
-            } 
-			# code...
+            $data[$userData->token][$formField->name] = $userData->field_value; 
+            
 		}
         $data =array('table_head'=>$formInfo->load('fields'),
         	'data'=>$data
-
         );
+        return $data;
     	return view('customForm.customForm')->with($data);
-
     }
+
+    public function customDelete(FormFields $formfield){
+        $res =$formfield->delete();
+        session()->flash('success', __('Form field delete successfully')); 
+        return back();
+
+    } 
 }
+
+	
+
+
+
+    

@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\FormInformation;
 use App\UserFormData;
+use App\Services\FrontService;
 
 
 class FrontController extends Controller
@@ -29,37 +30,20 @@ class FrontController extends Controller
 
     public function store(Request $request,FormInformation $form_information)
     {
-        //
+        $frontService=new FrontService;
+        // store Data userdata inside storeUserFormData
+        $response=$frontService->storeUserFormData($request,$form_information);
         
-        $fields=$form_information->fields;
-   		$data=array(); 
-        $token =$this->generateToken();
-        foreach ($fields as  $field) {
-        	$data[] =array(
-        		'form_information_id'=>$field->form_information_id,
-        		'formfield_id'=>$field->id,
-        		'field_value'=>$request->input($field->id),
-        		'user_id'	=>0,
-                'token'     =>$token,
-        		'ip_address'=>$request->input('ip','127.0.0.1')
-
-
-        	);
-      
-        }
-	if(UserFormData::insert($data)){
-  
-            session()->flash('success', __('Form data Submit successfully'));
+	if($response){
+            session()->flash('success','Form data Submit successfully');
         }else{
-            session()->flash('error', __('Opps some  error occure'));
+            session()->flash('error','Opps some  error occure');
         }
         return redirect()->back();
     }
-
-    private function generateToken()
-    {
-        return md5(rand(1, 10) . microtime());
-    }
-
-
+  
 }
+
+   
+
+
